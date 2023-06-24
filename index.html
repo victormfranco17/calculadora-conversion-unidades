@@ -1,0 +1,185 @@
+html
+<div class="calc-container">
+  <h1 class="calc-title">Calculadora de conversión de unidades</h1>
+  <div class="calc-form">
+    <label for="calc-input">Introduce el valor a convertir:</label>
+    <input type="number" id="calc-input" class="calc-input" value="0">
+    <select id="calc-unit1" class="calc-select">
+      <option value="m">Metro</option>
+      <option value="cm">Centímetro</option>
+      <option value="mm">Milímetro</option>
+      <option value="km">Kilómetro</option>
+      <option value="in">Pulgada</option>
+      <option value="ft">Pie</option>
+      <option value="yd">Yarda</option>
+      <option value="mi">Milla</option>
+    </select>
+    <button id="calc-convert" class="calc-button">Convertir</button>
+    <select id="calc-unit2" class="calc-select">
+      <option value="m">Metro</option>
+      <option value="cm">Centímetro</option>
+      <option value="mm">Milímetro</option>
+      <option value="km">Kilómetro</option>
+      <option value="in">Pulgada</option>
+      <option value="ft">Pie</option>
+      <option value="yd">Yarda</option>
+      <option value="mi">Milla</option>
+    </select>
+    <label for="calc-output">Resultado:</label>
+    <input type="number" id="calc-output" class="calc-output" value="0" readonly>
+  </div>
+</div>
+
+<style>
+  .calc-container {
+    width: 500px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+
+  .calc-title {
+    text-align: center;
+    color: #4a4a4a;
+  }
+
+  .calc-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+  }
+
+  .calc-input,
+  .calc-output {
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    text-align: right;
+  }
+
+  .calc-select {
+    width: 120px;
+    height: 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+  }
+
+  .calc-button {
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #99ccff;
+    color: white;
+    cursor: pointer;
+  }
+
+  .calc-button:hover {
+    background-color: #66b3ff;
+  }
+</style>
+
+<script>
+  // Obtener los elementos del DOM
+  var input = document.getElementById("calc-input");
+  var unit1 = document.getElementById("calc-unit1");
+  var convert = document.getElementById("calc-convert");
+  var unit2 = document.getElementById("calc-unit2");
+  var output = document.getElementById("calc-output");
+
+  // Definir las constantes de conversión
+  var M_TO_CM = 100; // Metro a centímetro
+  var M_TO_MM = 1000; // Metro a milímetro
+  var M_TO_KM = 0.001; // Metro a kilómetro
+  var M_TO_IN = 39.3701; // Metro a pulgada
+  var M_TO_FT = 3.28084; // Metro a pie
+  var M_TO_YD = 1.09361; // Metro a yarda
+  var M_TO_MI = 0.000621371; // Metro a milla
+
+  // Definir la función de conversión
+  function convertUnits() {
+    // Obtener los valores de entrada y de las unidades
+    var value = parseFloat(input.value);
+    var u1 = unit1.value;
+    var u2 = unit2.value;
+
+    // Verificar que el valor sea válido
+    if (isNaN(value)) {
+      alert("Por favor, introduce un número válido");
+      return;
+    }
+
+    // Convertir el valor a metros
+    var valueInMeters;
+    switch (u1) {
+      case "m":
+        valueInMeters = value;
+        break;
+      case "cm":
+        valueInMeters = value / M_TO_CM;
+        break;
+      case "mm":
+        valueInMeters = value / M_TO_MM;
+        break;
+      case "km":
+        valueInMeters = value / M_TO_KM;
+        break;
+      case "in":
+        valueInMeters = value / M_TO_IN;
+        break;
+      case "ft":
+        valueInMeters = value / M_TO_FT;
+        break;
+      case "yd":
+        valueInMeters = value / M_TO_YD;
+        break;
+      case "mi":
+        valueInMeters = value / M_TO_MI;
+        break;
+    }
+
+    // Convertir el valor en metros a la unidad deseada
+    var result;
+    switch (u2) {
+      case "m":
+        result = valueInMeters;
+        break;
+      case "cm":
+        result = valueInMeters * M_TO_CM;
+        break;
+      case "mm":
+        result = valueInMeters * M_TO_MM;
+        break;
+      case "km":
+        result = valueInMeters * M_TO_KM;
+        break;
+      case "in":
+        result = valueInMeters * M_TO_IN;
+        break;
+      case "ft":
+        result = valueInMeters * M_TO_FT;
+        break;
+      case "yd":
+        result = valueInMeters * M_TO_YD;
+        break;
+      case "mi":
+        result = valueInMeters * M_TO_MI;
+        break;
+    }
+
+    // Mostrar el resultado en el campo de salida
+    output.value = result.toFixed(2);
+  }
+
+  // Asignar la función de conversión al evento click del botón
+  convert.addEventListener("click", convertUnits);
+</script>
